@@ -17,10 +17,12 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
+        Resume[] getStorage = getResumesWithoutNulls();
         int index = -1;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
+        for (int i = 0; i < getStorage.length; i++) {
+            if (getStorage[i].getUuid().equals(uuid)) {
                 index = i;
+                break;
             }
         }
         if (index != -1) {
@@ -51,16 +53,25 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOf(storage, size());
+        storage = getResumesWithoutNulls();
+        return Arrays.copyOf(storage, storage.length);
     }
 
     int size() {
-        int size = 0;
+        storage = getResumesWithoutNulls();
+        return storage.length;
+    }
+
+    private Resume[] getResumesWithoutNulls() {
+        int actualSize = size();
+        Resume[] getStorage = new Resume[actualSize];
+        int k = 0;
         for (Resume resume : storage) {
             if (resume != null) {
-                size++;
+                getStorage[k] = resume;
+                k++;
             }
         }
-        return size;
+        return getStorage;
     }
 }

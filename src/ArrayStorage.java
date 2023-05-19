@@ -11,6 +11,7 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
+        storage = getResumesWithoutNulls();
         Resume[] new_storage = Arrays.copyOf(storage, storage.length + 1);
         new_storage[new_storage.length - 1] = r;
         storage = new_storage;

@@ -26,7 +26,7 @@ public class ArrayStorage {
             }
         }
         if (index != -1) {
-            return storage[index];
+            return getStorage[index];
         } else {
             return null;
         }
@@ -37,6 +37,7 @@ public class ArrayStorage {
         for (int i = 0; i < storage.length; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 index = i;
+                break;
             }
         }
         Resume[] new_storage = new Resume[storage.length - 1];
@@ -58,8 +59,13 @@ public class ArrayStorage {
     }
 
     int size() {
-        storage = getResumesWithoutNulls();
-        return storage.length;
+        int size = 0;
+        for (Resume resume : storage) {
+            if (resume != null) {
+                size++;
+            }
+        }
+        return size;
     }
 
     private Resume[] getResumesWithoutNulls() {

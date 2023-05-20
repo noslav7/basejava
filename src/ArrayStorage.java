@@ -12,9 +12,9 @@ public class ArrayStorage {
 
     void save(Resume r) {
         storage = getResumesWithoutNulls();
-        Resume[] new_storage = Arrays.copyOf(storage, storage.length + 1);
-        new_storage[new_storage.length - 1] = r;
-        storage = new_storage;
+        Resume[] newStorage = Arrays.copyOf(storage, storage.length + 1);
+        newStorage[newStorage.length - 1] = r;
+        storage = newStorage;
     }
 
     Resume get(String uuid) {
@@ -41,14 +41,14 @@ public class ArrayStorage {
                 break;
             }
         }
-        Resume[] new_storage = new Resume[storage.length - 1];
+        Resume[] newStorage = new Resume[storage.length - 1];
         for (int i = 0, k = 0; i < storage.length; i++) {
             if (i != index) {
-                new_storage[k] = storage[i];
+                newStorage[k] = storage[i];
                 k++;
             }
         }
-        storage = new_storage;
+        storage = newStorage;
     }
 
     /**

@@ -13,7 +13,6 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        storage = Arrays.copyOf(storage, size + 1);
         storage[size] = r;
         size++;
     }

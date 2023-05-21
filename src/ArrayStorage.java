@@ -19,9 +19,9 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        for (Resume resume : storage) {
-            if (resume.getUuid().equals(uuid)) {
-                return resume;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return storage[i];
             }
         }
         return null;
@@ -35,14 +35,7 @@ public class ArrayStorage {
                 break;
             }
         }
-        Resume[] newStorage = new Resume[storage.length - 1];
-        for (int i = 0, k = 0; i < storage.length; i++) {
-            if (i != index) {
-                newStorage[k] = storage[i];
-                k++;
-            }
-        }
-        storage = newStorage;
+        storage[index] = storage[size - 1];
         size--;
     }
 

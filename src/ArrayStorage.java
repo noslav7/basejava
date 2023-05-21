@@ -4,30 +4,31 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
+    private int size = size();
 
     void clear() {
-        Arrays.fill(storage, 0, size(), null);
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
     void save(Resume r) {
-        storage = getResumesWithoutNulls();
-        Resume[] newStorage = Arrays.copyOf(storage, storage.length + 1);
-        newStorage[newStorage.length - 1] = r;
-        storage = newStorage;
+        storage = Arrays.copyOf(storage, size + 1);
+        storage[storage.length - 1] = r;
+        size++;
     }
 
     Resume get(String uuid) {
-        Resume[] getStorage = getResumesWithoutNulls();
+        storage = Arrays.copyOf(storage, size);
         int index = -1;
-        for (int i = 0; i < getStorage.length; i++) {
-            if (getStorage[i].getUuid().equals(uuid)) {
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
                 index = i;
                 break;
             }
         }
         if (index != -1) {
-            return getStorage[index];
+            return storage[index];
         } else {
             return null;
         }
@@ -49,14 +50,14 @@ public class ArrayStorage {
             }
         }
         storage = newStorage;
+        size--;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        storage = getResumesWithoutNulls();
-        return Arrays.copyOf(storage, storage.length);
+        return Arrays.copyOf(storage, size);
     }
 
     int size() {
@@ -67,18 +68,5 @@ public class ArrayStorage {
             }
         }
         return size;
-    }
-
-    private Resume[] getResumesWithoutNulls() {
-        int actualSize = size();
-        Resume[] getStorage = new Resume[actualSize];
-        int k = 0;
-        for (Resume resume : storage) {
-            if (resume != null) {
-                getStorage[k] = resume;
-                k++;
-            }
-        }
-        return getStorage;
     }
 }

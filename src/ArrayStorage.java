@@ -34,9 +34,11 @@ public class ArrayStorage {
                 break;
             }
         }
-        storage[index] = storage[size - 1];
-        storage[size - 1] = null;
-        size--;
+        if (index > -1) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        }
     }
 
     /**

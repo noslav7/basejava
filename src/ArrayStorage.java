@@ -14,12 +14,11 @@ public class ArrayStorage {
 
     void save(Resume r) {
         storage = Arrays.copyOf(storage, size + 1);
-        storage[storage.length - 1] = r;
+        storage[size] = r;
         size++;
     }
 
     Resume get(String uuid) {
-        storage = Arrays.copyOf(storage, size);
         int index = -1;
         for (int i = 0; i < storage.length; i++) {
             if (storage[i].getUuid().equals(uuid)) {

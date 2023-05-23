@@ -81,10 +81,6 @@ public class ArrayStorage {
         return Arrays.copyOf(storage, size);
     }
 
-    public int size() {
-        return size;
-    }
-
     public void printNotFound(String uuid) {
         System.out.println("Резюме с uuid " + uuid + " не найдено");
     }

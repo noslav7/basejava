@@ -35,11 +35,12 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (storage[i].equals(resume)) {
                 //верна ли сигнатура метода update?
-                //storage[i].setUuid(resume.getUuid()); ?
+                //storage[i] = resume; ?
+                return;
             }
         }
         if (!uuidExists) {
-            printMessage(resume.getUuid());
+            printNotFound(resume.getUuid());
         }
     }
 
@@ -51,7 +52,7 @@ public class ArrayStorage {
             }
         }
         if (!uuidExists) {
-            printMessage(uuid);
+            printNotFound(uuid);
         }
         return null;
     }
@@ -84,7 +85,7 @@ public class ArrayStorage {
         return size;
     }
 
-    public void printMessage(String uuid) {
+    public void printNotFound(String uuid) {
         System.out.println("Резюме с uuid " + uuid + " не найдено");
     }
 }

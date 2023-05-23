@@ -84,4 +84,8 @@ public class ArrayStorage {
     public void printNotFound(String uuid) {
         System.out.println("Резюме с uuid " + uuid + " не найдено");
     }
+
+    public int getSize() {
+        return size;
+    }
 }

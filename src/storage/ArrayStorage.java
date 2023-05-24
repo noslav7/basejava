@@ -8,33 +8,32 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private final Resume[] STORAGE_LIMIT = new Resume[10000];
+    private final Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
 
+    protected static final int STORAGE_LIMIT = 10000;
+
     public void clear() {
-        Arrays.fill(STORAGE_LIMIT, 0, size, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume r) {
-        if (size == STORAGE_LIMIT.length) {
+        int index = getIndex(r.getUuid());
+        if (size == storage.length) {
             System.out.println("Невозможно сохранить. Предельное количество резюме достигнуто");
-            return;
+        } else if (storage[index].getUuid().equals(r.getUuid())) {
+            printAlreadyExists(r.getUuid());
+        } else {
+            storage[size] = r;
+            size++;
         }
-        for (int i = 0; i < size; i++) {
-            if (STORAGE_LIMIT[i].getUuid().equals(r.getUuid())) {
-                printAlreadyExists(r.getUuid());
-                return;
-            }
-        }
-        STORAGE_LIMIT[size] = r;
-        size++;
     }
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index > -1) {
-            STORAGE_LIMIT[index] = resume;
+            storage[index] = resume;
         } else {
             printNotFound(resume.getUuid());
         }
@@ -51,8 +50,8 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index > -1) {
-            STORAGE_LIMIT[index] = STORAGE_LIMIT[size - 1];
-            STORAGE_LIMIT[size - 1] = null;
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
         } else {
             printNotFound(uuid);
@@ -60,7 +59,7 @@ public class ArrayStorage {
     }
 
     public Resume[] getAll() {
-        return Arrays.copyOf(STORAGE_LIMIT, size);
+        return Arrays.copyOf(storage, size);
     }
 
     public void printNotFound(String uuid) {
@@ -72,13 +71,12 @@ public class ArrayStorage {
     }
 
     public int getIndex(String uuid) {
-        int index = -1;
         for (int i = 0; i < size; i++) {
-            if (STORAGE_LIMIT[i].getUuid().equals(uuid)) {
-                index = i;
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
             }
         }
-        return index;
+        return -1;
     }
 
     public int getSize() {

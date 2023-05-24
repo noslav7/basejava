@@ -22,7 +22,14 @@ public class ArrayStorage {
         int index = getIndex(r.getUuid());
         if (size == storage.length) {
             System.out.println("Невозможно сохранить. Предельное количество резюме достигнуто");
-        } else if (storage[index].getUuid().equals(r.getUuid())) {
+            return;
+        }
+        if (index == -1) {
+            storage[size] = r;
+            size++;
+            return;
+        }
+        if (storage[index].getUuid().equals(r.getUuid())) {
             printAlreadyExists(r.getUuid());
         } else {
             storage[size] = r;
@@ -40,11 +47,14 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
+        Resume resume = null;
         int index = getIndex(uuid);
         if (index == -1) {
             printNotFound(uuid);
+            return null;
+        } else {
+            return storage[index];
         }
-        return null;
     }
 
     public void delete(String uuid) {

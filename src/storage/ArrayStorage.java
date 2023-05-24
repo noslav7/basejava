@@ -22,14 +22,7 @@ public class ArrayStorage {
         int index = getIndex(r.getUuid());
         if (size == storage.length) {
             System.out.println("Невозможно сохранить. Предельное количество резюме достигнуто");
-            return;
-        }
-        if (index == -1) {
-            storage[size] = r;
-            size++;
-            return;
-        }
-        if (storage[index].getUuid().equals(r.getUuid())) {
+        } else if (index >= 0) {
             printAlreadyExists(r.getUuid());
         } else {
             storage[size] = r;

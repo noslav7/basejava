@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private final Resume[] storage = new Resume[10000];
     private int size;
 
     public void clear() {
@@ -22,7 +22,7 @@ public class ArrayStorage {
         }
         for (int i = 0; i < size; i++) {
             if (storage[i].equals(r)) {
-                System.out.println("Резюме с uuid " + r.getUuid() + " уже существует");
+                printAlreadyExists(r.getUuid());
                 return;
             }
         }
@@ -70,7 +70,7 @@ public class ArrayStorage {
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Резюме с uuid " + uuid + " не существует");
+            printNotFound(uuid);
         }
     }
 
@@ -83,6 +83,10 @@ public class ArrayStorage {
 
     public void printNotFound(String uuid) {
         System.out.println("Резюме с uuid " + uuid + " не найдено");
+    }
+
+    public void printAlreadyExists(String uuid) {
+        System.out.println("Резюме с uuid " + uuid + " уже существует");
     }
 
     public int getSize() {

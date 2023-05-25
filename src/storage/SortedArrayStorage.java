@@ -56,7 +56,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public Resume[] getAll() {
-        binaryInsertionSorting(sortedStorage);
         return Arrays.copyOfRange(sortedStorage,0, size);
     }
 

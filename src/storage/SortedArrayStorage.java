@@ -5,6 +5,8 @@ import model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
+    private final Resume[] sortedStorage = binaryInsertionSorting(storage);
+
     @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -58,8 +60,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
-    public void binaryInsertionSorting() {
-   /*     for (int i = 1; i < size; i++) {
+    private static Resume[] binaryInsertionSorting(Resume[] storage) {
+    /*    for (int i = 1; i < size; i++) {
             int x = array[i];
 
             // Find location to insert
@@ -77,5 +79,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             // correct location
             array[j] = x;
         }  */
+        return new Resume[0];
     }
 }

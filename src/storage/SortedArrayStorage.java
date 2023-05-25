@@ -9,13 +9,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void clear() {
-        Arrays.fill(storage, 0, size, null);
+        Arrays.fill(sortedStorage, 0, size, null);
         size = 0;
     }
 
     @Override
     public void update(Resume r) {
-        sortedStorage = binaryInsertionSorting(storage);
         int index = getIndex(r.getUuid());
         if (size >= STORAGE_LIMIT) {
             System.out.println("Невозможно сохранить. Предельное количество резюме достигнуто");
@@ -25,22 +24,26 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             sortedStorage[size] = r;
             size++;
         }
+        if (size > 1) {
+            binaryInsertionSorting(sortedStorage);
+        }
     }
 
     @Override
     public void save(Resume resume) {
-        sortedStorage = binaryInsertionSorting(storage);
         int index = getIndex(resume.getUuid());
         if (index > -1) {
             sortedStorage[index] = resume;
         } else {
             printNotFound(resume.getUuid());
         }
+        if (size > 1) {
+            binaryInsertionSorting(sortedStorage);
+        }
     }
 
     @Override
     public void delete(String uuid) {
-        sortedStorage = binaryInsertionSorting(storage);
         int index = getIndex(uuid);
         if (index > -1) {
             sortedStorage[index] = sortedStorage[size - 1];
@@ -53,19 +56,18 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public Resume[] getAll() {
-        sortedStorage = binaryInsertionSorting(storage);
+        binaryInsertionSorting(sortedStorage);
         return Arrays.copyOfRange(sortedStorage,0, size);
     }
 
     @Override
     protected int getIndex(String uuid) {
-        sortedStorage = binaryInsertionSorting(storage);
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
         return Arrays.binarySearch(sortedStorage, 0, size, searchKey);
     }
 
-    private static Resume[] binaryInsertionSorting(Resume[] storage) {
+    private void binaryInsertionSorting(Resume[] storage) {
     /*    for (int i = 1; i < size; i++) {
             int x = array[i];
 
@@ -84,6 +86,5 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             // correct location
             array[j] = x;
         }  */
-        return new Resume[0];
     }
 }

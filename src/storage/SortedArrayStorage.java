@@ -5,7 +5,7 @@ import model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
-    private final Resume[] sortedStorage = binaryInsertionSorting(storage);
+    private Resume[] sortedStorage;
 
     @Override
     public void clear() {
@@ -15,13 +15,14 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void update(Resume r) {
+        sortedStorage = binaryInsertionSorting(storage);
         int index = getIndex(r.getUuid());
         if (size >= STORAGE_LIMIT) {
             System.out.println("Невозможно сохранить. Предельное количество резюме достигнуто");
         } else if (index >= 0) {
             printAlreadyExists(r.getUuid());
         } else {
-            storage[size] = r;
+            sortedStorage[size] = r;
             size++;
         }
     }
@@ -30,7 +31,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index > -1) {
-            storage[index] = resume;
+            sortedStorage[index] = resume;
         } else {
             printNotFound(resume.getUuid());
         }
@@ -40,8 +41,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index > -1) {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
+            sortedStorage[index] = sortedStorage[size - 1];
+            sortedStorage[size - 1] = null;
             size--;
         } else {
             printNotFound(uuid);
@@ -50,14 +51,14 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public Resume[] getAll() {
-        return Arrays.copyOfRange(storage,0, size);
+        return Arrays.copyOfRange(sortedStorage,0, size);
     }
 
     @Override
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
-        return Arrays.binarySearch(storage, 0, size, searchKey);
+        return Arrays.binarySearch(sortedStorage, 0, size, searchKey);
     }
 
     private static Resume[] binaryInsertionSorting(Resume[] storage) {

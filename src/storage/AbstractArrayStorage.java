@@ -25,4 +25,12 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     protected abstract int getIndex(String uuid);
+
+    public void printNotFound(String uuid) {
+        System.out.println("Резюме с uuid " + uuid + " не найдено");
+    }
+
+    public void printAlreadyExists(String uuid) {
+        System.out.println("Резюме с uuid " + uuid + " уже существует");
+    }
 }

@@ -62,14 +62,7 @@ public class ArrayStorage extends AbstractArrayStorage {
         return Arrays.copyOfRange(storage,0, size);
     }
 
-    public void printNotFound(String uuid) {
-        System.out.println("Резюме с uuid " + uuid + " не найдено");
-    }
-
-    public void printAlreadyExists(String uuid) {
-        System.out.println("Резюме с uuid " + uuid + " уже существует");
-    }
-
+    @Override
     protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {

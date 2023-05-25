@@ -29,6 +29,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void save(Resume resume) {
+        sortedStorage = binaryInsertionSorting(storage);
         int index = getIndex(resume.getUuid());
         if (index > -1) {
             sortedStorage[index] = resume;
@@ -39,6 +40,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void delete(String uuid) {
+        sortedStorage = binaryInsertionSorting(storage);
         int index = getIndex(uuid);
         if (index > -1) {
             sortedStorage[index] = sortedStorage[size - 1];
@@ -51,11 +53,13 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public Resume[] getAll() {
+        sortedStorage = binaryInsertionSorting(storage);
         return Arrays.copyOfRange(sortedStorage,0, size);
     }
 
     @Override
     protected int getIndex(String uuid) {
+        sortedStorage = binaryInsertionSorting(storage);
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
         return Arrays.binarySearch(sortedStorage, 0, size, searchKey);

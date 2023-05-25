@@ -7,11 +7,11 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
+    protected static final int STORAGE_LIMIT = 10000;
+
     private final Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
-
-    protected static final int STORAGE_LIMIT = 10000;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -20,7 +20,7 @@ public class ArrayStorage {
 
     public void save(Resume r) {
         int index = getIndex(r.getUuid());
-        if (size == storage.length) {
+        if (size >= STORAGE_LIMIT) {
             System.out.println("Невозможно сохранить. Предельное количество резюме достигнуто");
         } else if (index >= 0) {
             printAlreadyExists(r.getUuid());
@@ -62,7 +62,7 @@ public class ArrayStorage {
     }
 
     public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+        return Arrays.copyOfRange(storage,0, size);
     }
 
     public void printNotFound(String uuid) {
@@ -82,7 +82,7 @@ public class ArrayStorage {
         return -1;
     }
 
-    public int getSize() {
+    public int size() {
         return size;
     }
 }

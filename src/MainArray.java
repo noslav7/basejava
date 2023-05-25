@@ -31,7 +31,7 @@ public class MainArray {
                     printAll();
                     break;
                 case "size":
-                    System.out.println(ARRAY_STORAGE.getSize());
+                    System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
                     r = new Resume();

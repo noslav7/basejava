@@ -5,7 +5,7 @@ import model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
-    private Resume[] sortedStorage;
+    private Resume[] sortedStorage = new Resume[STORAGE_LIMIT];
 
     @Override
     public void clear() {
@@ -14,14 +14,19 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
+    public void save(Resume resume) {
+        int index;
+        if (size > 0) {
+            index = getIndex(resume.getUuid());
+        } else {
+            index = -1;
+        }
         if (size >= STORAGE_LIMIT) {
             System.out.println("Невозможно сохранить. Предельное количество резюме достигнуто");
         } else if (index >= 0) {
-            printAlreadyExists(r.getUuid());
+            printAlreadyExists(resume.getUuid());
         } else {
-            sortedStorage[size] = r;
+            sortedStorage[size] = resume;
             size++;
         }
         if (size > 1) {
@@ -30,12 +35,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+    public void update(Resume r) {
+        int index = getIndex(r.getUuid());
         if (index > -1) {
-            sortedStorage[index] = resume;
+            storage[index] = r;
         } else {
-            printNotFound(resume.getUuid());
+            printNotFound(r.getUuid());
         }
         if (size > 1) {
             binaryInsertionSorting(sortedStorage);
@@ -67,23 +72,17 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     private void binaryInsertionSorting(Resume[] storage) {
-    /*    for (int i = 1; i < size; i++) {
-            int x = array[i];
+        for (int i = 1; i < size; i++) {
+             String temporary = storage[i].getUuid();
+             String previous = storage[i - 1].getUuid();
+             int j = i;
 
-            // Find location to insert
-            // using binary search
-            int j = Math.abs(
-                    Arrays.binarySearch(array, 0,
-                            i, x) + 1);
+             while (j - 1 >= 0 && temporary.compareTo(storage[j].getUuid()) < 0) {
+                 storage[j] = storage[j - 1];
+                 j--;
+             }
 
-            // Shifting array to one
-            // location right
-            System.arraycopy(array, j,
-                    array, j + 1, i - j);
-
-            // Placing element at its
-            // correct location
-            array[j] = x;
-        }  */
+             storage[i].setUuid(temporary);
+        }
     }
 }

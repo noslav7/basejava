@@ -35,18 +35,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    @Override
-    public Resume get(String uuid) {
-        Resume resume = null;
-        int index = getIndex(uuid);
-        if (index == -1) {
-            printNotFound(uuid);
-            return null;
-        } else {
-            return storage[index];
-        }
-    }
-
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index > -1) {
@@ -70,5 +58,17 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
+    }
+
+    @Override
+    public Resume get(String uuid) {
+        Resume resume = null;
+        int index = getIndex(uuid);
+        if (index == -1) {
+            printNotFound(uuid);
+            return null;
+        } else {
+            return storage[index];
+        }
     }
 }

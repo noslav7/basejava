@@ -74,11 +74,10 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     private void binaryInsertionSorting(Resume[] storage) {
         for (int i = 1; i < size; i++) {
              String temporary = storage[i].getUuid();
-             String previous = storage[i - 1].getUuid();
-             int j = i;
+             int j = i - 1;
 
-             while (j - 1 >= 0 && temporary.compareTo(storage[j].getUuid()) < 0) {
-                 storage[j] = storage[j - 1];
+             while (j >= 0 && temporary.compareTo(storage[j].getUuid()) < 0) {
+                 storage[j + 1] = storage[j];
                  j--;
              }
 

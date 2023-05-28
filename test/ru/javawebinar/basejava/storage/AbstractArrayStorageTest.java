@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import static org.junit.Assert.*;
@@ -14,6 +15,7 @@ public abstract class AbstractArrayStorageTest {
     static final String UUID_2 = "UUID_2";
     static final String UUID_3 = "UUID_3";
     static final Resume RESUME_3_UPDATED = new Resume("UUID_3");
+    static final Resume RESUME_5 = new Resume("UUID_5");
 
     @Before
     public void setUp() {
@@ -60,5 +62,24 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
         storage.get("dummy");
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void whenUpdatedWithNewUUIDThanDoNotExist() {
+        storage.update(RESUME_5);
+    }
+
+    @Test(expected = StorageException.class)
+    public void whenSaveIntoFullArrayThanStorageException() {
+        int uuidNumber = 4;
+        for (int i = 0; i < 9997; i++) {
+            storage.save(new Resume("UUID_" + uuidNumber++));
+        }
+        storage.save(new Resume("UUID_10001"));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void whenDeleteUnknownIndexThanStorageException() {
+        storage.delete("UUID_10001");
     }
 }

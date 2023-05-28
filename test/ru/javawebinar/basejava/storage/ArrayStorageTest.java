@@ -6,6 +6,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 public class ArrayStorageTest extends AbstractArrayStorageTest {
     static final Resume RESUME_4 = new Resume("UUID_4");
+
     @Before
     public void setUp() {
         storage = new ArrayStorage();
@@ -13,6 +14,7 @@ public class ArrayStorageTest extends AbstractArrayStorageTest {
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
         storage.save(new Resume(UUID_3));
+
     }
 
     @Override

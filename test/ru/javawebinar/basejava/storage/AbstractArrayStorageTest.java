@@ -8,7 +8,7 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractArrayStorageTest {
-    protected Storage storage;
+    protected final Storage storage;
     protected static final String UUID_1 = "UUID_1";
     protected static final String UUID_2 = "UUID_2";
     protected static final String UUID_3 = "UUID_3";
@@ -19,6 +19,10 @@ public abstract class AbstractArrayStorageTest {
     protected static final Resume RESUME_4 = new Resume(UUID_4);
     protected static final Resume[] expected = new Resume[] {RESUME_1, RESUME_2, RESUME_3};
     protected static final String UUID_NOT_EXIST = "dummy";
+
+    protected AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
 
     @Before
     public void setUp() {
@@ -63,7 +67,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() {
+        assertGet(RESUME_1);
         assertGet(RESUME_2);
+        assertGet(RESUME_3);
     }
 
     public void assertGet(Resume resume) {

@@ -7,13 +7,16 @@ import ru.javawebinar.basejava.model.Resume;
 public class SortedArrayStorageTest extends AbstractArrayStorageTest {
     static final Resume RESUME_2_SAVE = new Resume("UUID_2");
 
+    public SortedArrayStorageTest() {
+        super(new SortedArrayStorage());
+    }
+
     @Before
     public void setUp() {
-        storage = new SortedArrayStorage();
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(RESUME_1);
+        storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @Override

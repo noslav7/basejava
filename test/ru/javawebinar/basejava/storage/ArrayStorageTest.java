@@ -6,9 +6,12 @@ import ru.javawebinar.basejava.model.Resume;
 
 public class ArrayStorageTest extends AbstractArrayStorageTest {
 
+    public ArrayStorageTest() {
+        super(new ArrayStorage());
+    }
+
     @Before
     public void setUp() {
-        storage = new ArrayStorage();
         storage.clear();
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));

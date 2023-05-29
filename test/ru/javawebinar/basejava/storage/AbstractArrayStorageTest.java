@@ -18,6 +18,7 @@ public abstract class AbstractArrayStorageTest {
     protected static final Resume RESUME_3 = new Resume(UUID_3);
     protected static final Resume RESUME_4 = new Resume(UUID_4);
     protected static final Resume[] expected = new Resume[] {RESUME_1, RESUME_2, RESUME_3};
+    protected static final String UUID_NOT_EXIST = "dummy";
 
     @Before
     public void setUp() {
@@ -70,26 +71,27 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getNotExist() {
-        storage.get("dummy");
+    public void getExist() {
+        storage.get(UUID_NOT_EXIST);
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void whenUpdatedWithNewUUIDThanDoNotExist() {
+    public void updateNotExist() {
         storage.update(RESUME_4);
     }
 
     @Test(expected = StorageException.class)
-    public void whenSaveIntoFullArrayThanStorageException() {
-        int uuidNumber = 4;
-        for (int i = 0; i < 9997; i++) {
+    public void saveOverflow() {
+        storage.clear();
+        int uuidNumber = 0;
+        for (int i = 0; i < 10_000; i++) {
             storage.save(new Resume("UUID_" + uuidNumber++));
         }
         storage.save(new Resume("UUID_10001"));
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void whenDeleteUnknownIndexThanStorageException() {
+    public void deleteNotExist() {
         storage.delete("UUID_10001");
     }
 }

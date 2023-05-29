@@ -5,7 +5,6 @@ import org.junit.Before;
 import ru.javawebinar.basejava.model.Resume;
 
 public class ArrayStorageTest extends AbstractArrayStorageTest {
-    static final Resume RESUME_4 = new Resume("UUID_4");
 
     @Before
     public void setUp() {
@@ -20,13 +19,15 @@ public class ArrayStorageTest extends AbstractArrayStorageTest {
     @Override
     public void save() {
         storage.save(RESUME_4);
-        Assert.assertEquals(RESUME_4, storage.get("UUID_4"));
+        assertGet(RESUME_4);
+        assertSize(4);
     }
 
     @Override
     public void delete() {
-        storage.delete("UUID_1");
-        Assert.assertEquals(new Resume[] {new Resume("UUID_3"), new Resume("UUID_2")},
+        storage.delete(UUID_1);
+        Assert.assertArrayEquals(new Resume[] {new Resume("UUID_3"), new Resume("UUID_2")},
                 storage.getAll());
+        assertSize(2);
     }
 }

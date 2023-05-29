@@ -90,8 +90,12 @@ public abstract class AbstractArrayStorageTest {
     public void saveOverflow() {
         storage.clear();
         int uuidNumber = 0;
-        for (int i = 0; i < 10_000; i++) {
-            storage.save(new Resume("UUID_" + uuidNumber++));
+        try {
+            for (int i = 0; i < 10_000; i++) {
+                storage.save(new Resume("UUID_" + uuidNumber++));
+            }
+        } catch (StorageException storageException) {
+            throw new RuntimeException();
         }
         storage.save(new Resume("UUID_10001"));
     }

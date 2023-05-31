@@ -50,8 +50,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-        storage.update(new Resume(UUID_1));
-        Assert.assertSame(UUID_1, storage.get(UUID_1).getUuid());
+        Resume newResume = new Resume(UUID_1);
+        storage.update(newResume);
+        Assert.assertSame(newResume, storage.get(UUID_1));
     }
 
     @Test
@@ -60,10 +61,20 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public abstract void save();
+    public void save() {
+        storage.save(RESUME_4);
+        assertGet(RESUME_4);
+        assertSize(4);
+    }
 
-    @Test
-    public abstract void delete();
+    @Test(expected = NotExistStorageException.class)
+    public void delete() {
+        storage.delete(UUID_1);
+        Assert.assertArrayEquals(new Resume[] {RESUME_2, RESUME_3},
+                storage.getAll());
+        assertSize(2);
+        storage.get(UUID_1);
+    }
 
     @Test
     public void get() {
@@ -77,7 +88,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getExist() {
+    public void getNotExist() {
         storage.get(UUID_NOT_EXIST);
     }
 
@@ -95,13 +106,25 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume("UUID_" + uuidNumber++));
             }
         } catch (StorageException storageException) {
-            throw new RuntimeException();
+            Assert.fail("Premature StorageException");
         }
         storage.save(new Resume("UUID_10001"));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
-        storage.delete("UUID_10001");
+        storage.delete(UUID_NOT_EXIST);
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void deletedElementNotExist() {
+        storage.delete(UUID_3);
+        assertSize(2);
+        storage.get(UUID_3);
+    }
+
+    @Test(expected = StorageException.class)
+    public void saveAlreadyExisting() {
+        storage.save(RESUME_2);
     }
 }

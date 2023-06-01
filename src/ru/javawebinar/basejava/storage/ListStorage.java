@@ -3,6 +3,7 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -25,17 +26,6 @@ public class ListStorage extends AbstractStorage {
         } else {
             resumesList.set(index, r);
         }
-    }
-
-    /*
-    public List<Resume> getAll() {
-        return new ArrayList<Resume>(resumesList);
-    }
-    */
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
     }
 
     @Override
@@ -75,5 +65,9 @@ public class ListStorage extends AbstractStorage {
             }
         }
         return -1;
+    }
+
+    public List<Resume> getAllfromList() {
+        return new ArrayList<Resume>(resumesList);
     }
 }

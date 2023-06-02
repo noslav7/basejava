@@ -62,7 +62,7 @@ public class ListStorage extends AbstractStorage {
         return -1;
     }
 
-    public List<Resume> getAllfromList() {
+    public List<Resume> getAllFromList() {
         return new ArrayList<Resume>(resumesList);
     }
 }

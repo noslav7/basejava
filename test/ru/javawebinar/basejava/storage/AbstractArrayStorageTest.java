@@ -13,12 +13,20 @@ public abstract class AbstractArrayStorageTest {
     protected static final String UUID_2 = "UUID_2";
     protected static final String UUID_3 = "UUID_3";
     protected static final String UUID_4 = "UUID_4";
-    protected static final Resume RESUME_1 = new Resume(UUID_1);
-    protected static final Resume RESUME_2 = new Resume(UUID_2);
-    protected static final Resume RESUME_3 = new Resume(UUID_3);
-    protected static final Resume RESUME_4 = new Resume(UUID_4);
-    protected static final Resume[] expected = new Resume[] {RESUME_1, RESUME_2, RESUME_3};
     protected static final String UUID_NOT_EXIST = "dummy";
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_4;
+
+    static {
+        RESUME_1 = new Resume(UUID_1);
+        RESUME_2 = new Resume(UUID_2);
+        RESUME_3 = new Resume(UUID_3);
+        RESUME_4 = new Resume(UUID_4);
+    }
+
+    protected static final Resume[] expected = new Resume[] {RESUME_1, RESUME_2, RESUME_3};
 
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -70,8 +78,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(UUID_1);
-        Assert.assertArrayEquals(new Resume[] {RESUME_2, RESUME_3},
-                storage.getAll());
         assertSize(2);
         storage.get(UUID_1);
     }

@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    protected final List<Resume> resumesList;
+    protected List<Resume> resumesList = new ArrayList<>();
 
     public ListStorage(List<Resume> resumesList) {
         this.resumesList = resumesList;
+    }
+
+    public int size() {
+        return resumesList.size();
     }
 
     @Override

@@ -7,8 +7,6 @@ public abstract class AbstractStorage {
 
     public abstract void update(Resume r);
 
-    public abstract int size();
-
     public abstract void save(Resume r);
 
     public abstract void delete(String uuid);

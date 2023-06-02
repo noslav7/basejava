@@ -29,11 +29,6 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public int size() {
-        return resumesList.size();
-    }
-
-    @Override
     public void save(Resume r) {
             resumesList.add(r);
     }

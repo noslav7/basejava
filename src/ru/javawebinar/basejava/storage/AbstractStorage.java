@@ -1,37 +1,56 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-public abstract class AbstractStorage {
+public abstract class AbstractStorage implements Storage {
 
     public void update(Resume r) {
-        int index = (int) getSearchKey(r.getUuid());
-        if (index < 0) {
+        Object searchKey = getSearchKey(r.getUuid());
+        if (!isExist(searchKey)) {
             throw new NotExistStorageException(r.getUuid());
         } else {
-            resumesList.set(index, r);
+            doUpdate(r, searchKey);
         }
     }
+
+    protected abstract Object getSearchKey(String uuid);
+
+    protected abstract void doUpdate(Resume r, Object searchKey);
+
+    protected abstract boolean isExist(Object searchKey);
 
     public void save(Resume r) {
-        resumesList.add(r);
+        Object searchKey = getSearchKey(r.getUuid());
+        if (!isExist(searchKey)) {
+            throw new ExistStorageException(r.getUuid());
+        } else {
+            doSave(r, searchKey);
+        }
     }
+
+    protected abstract void doSave(Resume r, Object searchKey);
 
     public void delete(String uuid) {
-        int index = getSearchKey(uuid);
-        if (index < 0) {
+        Object searchKey = getSearchKey(uuid);
+        if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         } else {
-            resumesList.remove(index);
+            doDelete(searchKey);
         }
     }
 
+    protected abstract void doDelete(Object searchKey);
+
     public Resume get(String uuid) {
-        int index = (int) getSearchKey(uuid);
-        if (index < 0) {
+        Object searchKey = getSearchKey(uuid);
+        if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
+        } else {
+            return doGet(searchKey);
         }
-        return resumesList.get(index);
     }
+
+    protected abstract Resume doGet(Object searchKey);
 }

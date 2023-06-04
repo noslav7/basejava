@@ -26,7 +26,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     public void update(Resume r) {
-        int index = getIndex(r.getUuid());
+        int index = getSearchKey(r.getUuid());
         if (index < 0) {
             throw new NotExistStorageException(r.getUuid());
         } else {
@@ -42,7 +42,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     public void save(Resume r) {
-        int index = getIndex(r.getUuid());
+        int index = getSearchKey(r.getUuid());
         if (index >= 0) {
             throw new ExistStorageException(r.getUuid());
         } else if (size >= STORAGE_LIMIT) {
@@ -54,7 +54,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
+        int index = getSearchKey(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         } else {
@@ -65,7 +65,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
+        int index = getSearchKey(uuid);
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         }
@@ -76,5 +76,5 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
 
     protected abstract void insertElement(Resume r, int index);
 
-    protected abstract int getIndex(String uuid);
+    protected abstract int getSearchKey(String uuid);
 }

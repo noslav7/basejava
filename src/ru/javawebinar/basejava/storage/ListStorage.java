@@ -6,29 +6,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    protected List<Resume> resumesList = new ArrayList<>();
+    private List<Resume> list = new ArrayList<>();
 
-    public ListStorage(List<Resume> resumesList) {
-        this.resumesList = resumesList;
-    }
-
-    public void clear() {
-        resumesList.clear();
-    }
-
-    public int size() {
-        return resumesList.size();
-    }
-
-    public Object getSearchKey(String uuid) {
-        for (int i = 0; i < resumesList.size(); i++) {
-            if (uuid.equals(resumesList.get(i).getUuid())) {
+    @Override
+    protected Object getSearchKey(String uuid) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
         return -1;
+    }
 
-    public List<Resume> getAllFromList() {
-        return new ArrayList<Resume>(resumesList);
+    @Override
+    protected void doUpdate(Resume r, Object searchKey) {
+        list.set((Integer) searchKey, r);
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected void doSave(Resume r, Object searchKey) {
+        list.add(r);
+    }
+
+    @Override
+    protected void doDelete(Object searchKey) {
+        list.remove(((Integer) searchKey).intValue());
+    }
+
+    @Override
+    protected Resume doGet(Object searchKey) {
+        return list.get((Integer) searchKey);
+    }
+
+    @Override
+    public void clear() {
+        list.clear();
+    }
+
+    @Override
+    public Resume[] getAll() {
+        return list.toArray(new Resume[list.size()]);
+    }
+
+    @Override
+    public int size() {
+        return list.size();
     }
 }

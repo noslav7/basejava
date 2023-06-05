@@ -7,7 +7,7 @@ import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
     protected final Storage storage;
     protected static final String UUID_1 = "UUID_1";
     protected static final String UUID_2 = "UUID_2";
@@ -28,7 +28,7 @@ public abstract class AbstractArrayStorageTest {
 
     protected static final Resume[] expected = new Resume[] {RESUME_1, RESUME_2, RESUME_3};
 
-    protected AbstractArrayStorageTest(Storage storage) {
+    protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -105,16 +105,14 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
-        storage.clear();
-        int uuidNumber = 0;
         try {
-            for (int i = 0; i < 10_000; i++) {
-                storage.save(new Resume("UUID_" + uuidNumber++));
+            for (int i = 4; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
             }
         } catch (StorageException storageException) {
             Assert.fail("Premature StorageException");
         }
-        storage.save(new Resume("UUID_10001"));
+        storage.save(new Resume());
     }
 
     @Test(expected = NotExistStorageException.class)

@@ -1,6 +1,7 @@
 package ru.javawebinar.basejava.storage;
 
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
@@ -105,6 +106,10 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverflow() {
+         if (!(storage instanceof ArrayStorage) &&
+                    !(storage instanceof SortedArrayStorage)) {
+            Assume.assumeTrue(false);
+        }
         try {
             for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());

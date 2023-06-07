@@ -1,17 +1,15 @@
 package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
-    Map<String, Resume> map = new HashMap<>();
+    Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
     protected Object getSearchKey(String uuid) {
-        if (map.containsKey(uuid)) {
+        if (!map.containsKey(uuid)) {
             return uuid;
         }
         return null;

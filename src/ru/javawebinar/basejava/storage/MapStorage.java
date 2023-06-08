@@ -5,14 +5,11 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.*;
 
 public class MapStorage extends AbstractStorage {
-    Map<String, Resume> map = new LinkedHashMap<>();
+    private final Map<String, Resume> map = new LinkedHashMap<>();
 
     @Override
     protected Object getSearchKey(String uuid) {
-        if (map.containsKey(uuid)) {
             return uuid;
-        }
-        return null;
     }
 
     @Override
@@ -27,7 +24,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Resume r, Object searchKey) {
-        map.put((String) r.getUuid(), r);
+        map.put(r.getUuid(), r);
     }
 
     @Override
@@ -47,11 +44,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        List<Resume> list = new ArrayList<>();
-        for (Map.Entry<String, Resume> mapElement : map.entrySet()) {
-            list.add(mapElement.getValue());
-        }
-        return list.toArray(new Resume[0]);
+        return map.values().toArray(new Resume[0]);
     }
 
     @Override

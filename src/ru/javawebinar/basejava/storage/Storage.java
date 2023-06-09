@@ -16,5 +16,7 @@ public interface Storage {
 
     Resume[] getAll();
 
+// return List, sorted by fullName
+// List<Resume> getAllSorted();
     int size();
 }

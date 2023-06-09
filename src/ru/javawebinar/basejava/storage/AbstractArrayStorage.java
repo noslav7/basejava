@@ -28,6 +28,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[(Integer) index] = r;
     }
 
+    @Override
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }

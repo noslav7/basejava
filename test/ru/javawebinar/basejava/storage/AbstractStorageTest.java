@@ -20,10 +20,10 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
-        RESUME_4 = new Resume(UUID_4);
+        RESUME_1 = new Resume(UUID_1, "Name 1");
+        RESUME_2 = new Resume(UUID_2, "Name 2");
+        RESUME_3 = new Resume(UUID_3, "Name 3");
+        RESUME_4 = new Resume(UUID_4, "Name 4");
     }
 
     protected static final Resume[] expected = new Resume[] {RESUME_1, RESUME_2, RESUME_3};
@@ -58,7 +58,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume newResume = new Resume(UUID_1);
+        Resume newResume = new Resume(UUID_1, "New Name");
         storage.update(newResume);
         Assert.assertSame(newResume, storage.get(UUID_1));
     }

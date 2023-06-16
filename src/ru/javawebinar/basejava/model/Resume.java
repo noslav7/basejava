@@ -1,5 +1,8 @@
 package ru.javawebinar.basejava.model;
 
+import ru.javawebinar.basejava.uml.AbstractSection;
+
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -9,6 +12,8 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume> {
     private final String uuid;
     private final String fullName;
+    private Map<ContactType, String> contacts;
+    private Map<SectionType, AbstractSection> sections;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -56,5 +61,13 @@ public class Resume implements Comparable<Resume> {
     public int compareTo(Resume o) {
         int cmp = fullName.compareTo(o.fullName);
         return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
     }
 }

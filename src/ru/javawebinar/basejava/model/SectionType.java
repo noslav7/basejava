@@ -8,7 +8,7 @@ public enum SectionType {
     EXPERIENCE("Опыт работы"),
     EDUCATION("Образование");
 
-    private String title;
+    private final String title;
 
     SectionType(String title) {
         this.title = title;

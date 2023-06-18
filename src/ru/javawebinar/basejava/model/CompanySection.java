@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class CompanySection extends AbstractSection {
-    private List<Company> companies;
+    private final List<Company> companies;
 
     public CompanySection(List<Company> companies) {
         this.companies = companies;

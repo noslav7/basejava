@@ -1,6 +1,7 @@
 package ru.javawebinar.basejava.model;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,10 +9,7 @@ public class Company {
     private final String companyName;
     private URL link;
     private List<Period> periods;
-
-    public Company(String companyName) {
-        this.companyName = companyName;
-    }
+    private final List<Position> positions = new ArrayList<>();
 
     public Company(String companyName, URL link, List<Period> periods) {
         Objects.requireNonNull(companyName, "companyName must not be null");

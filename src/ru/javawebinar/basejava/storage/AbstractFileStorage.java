@@ -24,11 +24,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     @Override
-    protected File getSearchKey(String uuid) {
-        return new File(directory, uuid);
-    }
-
-    @Override
     protected void doUpdate(Resume r, File file) {
         try {
             doWrite(r, file);
@@ -52,8 +47,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         doUpdate(resume, file);
     }
 
-    protected abstract void doWrite(Resume resume, File file) throws IOException;
-
     @Override
     protected void doDelete(File file) {
         if (!file.delete()) {
@@ -69,8 +62,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new StorageException("File read error", file.getName(), e);
         }
     }
-
-    protected abstract Resume doRead(File file) throws IOException;
 
     @Override
     protected List<Resume> doCopyAll() {
@@ -92,6 +83,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             for (File file : files) {
                 doDelete(file);
             }
+        } else {
+        throw new StorageException("Directory read error", null);
         }
     }
 
@@ -103,4 +96,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
         return list.length;
     }
+
+    protected abstract void doWrite(Resume resume, File file) throws IOException;
+
+    protected abstract Resume doRead(File file) throws IOException;
 }

@@ -10,6 +10,7 @@ import java.util.UUID;
  * Initial resume class
  */
 public class Resume implements Comparable<Resume>, Serializable {
+    private static final long serialVersionUid = 1L;
     private final String uuid;
     private final String fullName;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);

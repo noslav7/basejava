@@ -79,12 +79,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files != null) {
+        if (files == null) {
+            throw new StorageException("Directory read error", null);
+        } else {
             for (File file : files) {
                 doDelete(file);
             }
-        } else {
-        throw new StorageException("Directory read error", null);
         }
     }
 

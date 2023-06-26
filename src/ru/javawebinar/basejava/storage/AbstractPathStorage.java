@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
+    /*
     private Path directory;
 
     protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
@@ -101,4 +102,5 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         }
         return list;
     }
+    */
 }

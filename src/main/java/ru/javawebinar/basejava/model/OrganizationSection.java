@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class OrganizationSection extends Section {
     private static final long serialVersionUid = 1L;
-    private final List<Organization> organizations;
+    private List<Organization> organizations;
 
     public OrganizationSection(Organization... organizations) {
         this(Arrays.asList(organizations));
@@ -14,6 +14,9 @@ public class OrganizationSection extends Section {
 
     public OrganizationSection(List<Organization> organizations) {
         this.organizations = organizations;
+    }
+
+    public OrganizationSection() {
     }
 
     public List<Organization> getOrganizations() {

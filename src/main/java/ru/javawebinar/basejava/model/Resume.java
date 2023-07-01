@@ -35,6 +35,21 @@ public class Resume implements Comparable<Resume>, Serializable {
     public Resume() {
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sections;
+    }
     public void addContact(ContactType type, String value) {
         contacts.put(type, value);
     }
@@ -43,12 +58,12 @@ public class Resume implements Comparable<Resume>, Serializable {
         sections.put(type, section);
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getContact(ContactType type) {
+        return contacts.get(type);
     }
 
-    public String getFullName() {
-        return fullName;
+    public Section getSection(SectionType type) {
+        return sections.get(type);
     }
 
     @Override
@@ -76,21 +91,5 @@ public class Resume implements Comparable<Resume>, Serializable {
     public int compareTo(Resume o) {
         int cmp = fullName.compareTo(o.fullName);
         return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
-    }
-
-    public Map<ContactType, String> getContacts() {
-        return contacts;
-    }
-
-    public Map<SectionType, Section> getSections() {
-        return sections;
-    }
-
-    public String getContact(ContactType type) {
-        return contacts.get(type);
-    }
-
-    public Section getSection(SectionType type) {
-        return sections.get(type);
     }
 }

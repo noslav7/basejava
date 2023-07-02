@@ -36,7 +36,7 @@ public abstract class AbstractStorageTest {
         R4 = new Resume(UUID_4, "Name 4");
         R1.addContact(ContactType.MAIL, "mail1@ya.ru");
         R1.addContact(ContactType.PHONE, "11111");
- /*       R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
+        R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
@@ -62,7 +62,6 @@ public abstract class AbstractStorageTest {
                         new Organization("Organization2", "http://Organization2.ru",
                                 new Organization.Position(2015, Month.JANUARY,
                                         "position1", "content1"))));
-  */
     }
 
     protected static final Resume[] expected = new Resume[] {R1, R2, R3};

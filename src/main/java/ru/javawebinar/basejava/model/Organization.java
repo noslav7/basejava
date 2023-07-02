@@ -52,6 +52,14 @@ public class Organization implements Serializable {
         return "Organization(" + homePage + "," + positions + ')';
     }
 
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
+    }
+
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -76,7 +84,7 @@ public class Organization implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = description;
+            this.description = description == null ? "" : description;
         }
 
         public Position() {

@@ -4,8 +4,10 @@ import ru.javawebinar.basejava.model.*;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class DataStreamSerializer implements StreamSerializer {
 
@@ -73,8 +75,8 @@ public class DataStreamSerializer implements StreamSerializer {
 
     private Section readSection(DataInputStream dis, SectionType sectionType) throws IOException {
         switch (sectionType) {
-            case OBJECTIVE:
             case PERSONAL:
+            case OBJECTIVE:
                 return new TextSection(dis.readUTF());
             case ACHIEVEMENT:
             case QUALIFICATIONS:

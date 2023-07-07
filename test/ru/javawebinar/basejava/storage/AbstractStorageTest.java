@@ -54,7 +54,10 @@ public abstract class AbstractStorageTest {
                                         "aspirant", null),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY,
                                         "student", "IT facultet")),
-                        new Organization("Organization12", "http://Organization12.ru")));
+                        new Organization("Organization12", "http://Organization12.ru",
+                                new Organization.Position(2005, Month.SEPTEMBER, 2006, Month.JULY,
+                                        "student", "Business school"))));
+
         R2.addContact(ContactType.SKYPE, "skype2");
         R2.addContact(ContactType.PHONE, "22222");
         R2.addSection(SectionType.EXPERIENCE,

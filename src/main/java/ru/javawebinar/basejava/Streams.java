@@ -20,11 +20,11 @@ public class Streams {
                 .filter(e -> e % 2 == 0)
                 .isPresent()) {
             return integers.stream()
-                    .filter(e -> e % 2 == 0)
+                    .filter(e -> e % 2 != 0)
                     .collect(Collectors.toList());
         } else {
             return integers.stream()
-                    .filter(e -> e % 2 != 0)
+                    .filter(e -> e % 2 == 0)
                     .collect(Collectors.toList());
         }
     }

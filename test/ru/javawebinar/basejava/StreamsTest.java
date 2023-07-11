@@ -48,7 +48,7 @@ public class StreamsTest {
     }
 
     @Test
-    public void whenOddOrEvenTest367988then379() {
+    public void whenOddOrEvenTest367988then688() {
         List<Integer> testList = new ArrayList<>();
         testList.add(3);
         testList.add(6);

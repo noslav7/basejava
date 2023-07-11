@@ -2,7 +2,6 @@ package ru.javawebinar.basejava;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Streams {
@@ -15,16 +14,16 @@ public class Streams {
     }
 
     public List<Integer> oddOrEven(List<Integer> integers) {
-        if (Optional.of(integers.stream()
-                        .reduce(0, Integer::sum))
-                .filter(e -> e % 2 == 0)
-                .isPresent()) {
+        int oddUnitsNumber = (int) integers.stream()
+                .filter(e -> e % 2 != 0)
+                .count();
+        if (oddUnitsNumber % 2 == 0) {
             return integers.stream()
-                    .filter(e -> e % 2 == 0)
+                    .filter(e -> e % 2 != 0)
                     .collect(Collectors.toList());
         } else {
             return integers.stream()
-                    .filter(e -> e % 2 != 0)
+                    .filter(e -> e % 2 == 0)
                     .collect(Collectors.toList());
         }
     }

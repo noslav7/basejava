@@ -39,8 +39,10 @@ public class StreamsTest {
         testList.add(8);
         Streams stream = new Streams();
         List<Integer> expected = new ArrayList<>();
-        expected.add(8);
-        expected.add(8);
+        expected.add(3);
+        expected.add(5);
+        expected.add(7);
+        expected.add(9);
         List<Integer> actual = stream.oddOrEven(testList);
         Assert.assertEquals(expected, actual);
     }
@@ -56,9 +58,9 @@ public class StreamsTest {
         testList.add(8);
         Streams stream = new Streams();
         List<Integer> expected = new ArrayList<>();
-        expected.add(3);
-        expected.add(7);
-        expected.add(9);
+        expected.add(6);
+        expected.add(8);
+        expected.add(8);
         List<Integer> actual = stream.oddOrEven(testList);
         Assert.assertEquals(expected, actual);
     }

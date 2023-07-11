@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class StreamsTest {
 
@@ -14,18 +15,18 @@ public class StreamsTest {
     public void whenMinValueTest123323then123() {
         int[] testArray = new int[] {1,2,3,3,2,3};
         Streams stream = new Streams();
-        int[] expected = new int[] {1,2,3};
-        int[] actual = stream.minValue(testArray);
-        assertArrayEquals(expected, actual);
+        int expected = 123;
+        int actual = stream.minValue(testArray);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void whenMinValueTest98then89() {
         int[] testArray = new int[] {9, 8};
         Streams stream = new Streams();
-        int[] expected = new int[] {8, 9};
-        int[] actual = stream.minValue(testArray);
-        assertArrayEquals(expected, actual);
+        int expected = 89;
+        int actual = stream.minValue(testArray);
+        assertEquals(expected, actual);
     }
 
     @Test

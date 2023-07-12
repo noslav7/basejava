@@ -7,15 +7,10 @@ import java.util.stream.Collectors;
 public class Streams {
 
     public int minValue(int[] values) {
-        int[] resultInArray = Arrays.stream(values)
+        return Arrays.stream(values)
                 .distinct()
                 .sorted()
-                .toArray();
-        int result = 0;
-        for (int i = 0; i < resultInArray.length; i++) {
-            result += resultInArray[i] * (Math.pow(10, (resultInArray.length - i - 1)));
-        }
-        return result;
+                .reduce(0, (first, second) -> (int) (first * Math.pow(10, second + 1)));
     }
 
     public List<Integer> oddOrEven(List<Integer> integers) {

@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class StreamsTest {
@@ -30,7 +29,7 @@ public class StreamsTest {
     }
 
     @Test
-    public void whenOddOrEvenTest357988then88() {
+    public void whenOddOrEvenTest357988then3579() {
         List<Integer> testList = new ArrayList<>();
         testList.add(3);
         testList.add(5);

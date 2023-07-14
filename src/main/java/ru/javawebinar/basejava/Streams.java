@@ -2,6 +2,7 @@ package ru.javawebinar.basejava;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Streams {
@@ -14,17 +15,12 @@ public class Streams {
     }
 
     public List<Integer> oddOrEven(List<Integer> integers) {
-        int oddUnitsNumber = (int) integers.stream()
-                .filter(e -> e % 2 != 0)
-                .count();
-        if (oddUnitsNumber % 2 == 0) {
-            return integers.stream()
-                    .filter(e -> e % 2 != 0)
-                    .collect(Collectors.toList());
+        Map<Boolean, List<Integer>> oddOrEvenNumbersMap = integers.stream()
+                .collect(Collectors.partitioningBy(e -> e % 2 == 1));
+        if (oddOrEvenNumbersMap.get(true).size() % 2 == 1) {
+            return oddOrEvenNumbersMap.get(false);
         } else {
-            return integers.stream()
-                    .filter(e -> e % 2 == 0)
-                    .collect(Collectors.toList());
+            return oddOrEvenNumbersMap.get(true);
         }
     }
 }

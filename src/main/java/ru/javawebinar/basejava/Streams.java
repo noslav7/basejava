@@ -1,6 +1,5 @@
 package ru.javawebinar.basejava;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +18,7 @@ public class Streams {
         Map<Boolean, List<Integer>> oddOrEvenNumbersMap = integers.stream()
                 .collect(Collectors.partitioningBy(e -> e % 2 == 1));
 
-        List<Integer> result;
-        result = oddOrEvenNumbersMap.get(true).size() % 2 == 1 ?
+        return oddOrEvenNumbersMap.get(true).size() % 2 == 1 ?
             oddOrEvenNumbersMap.get(false) : oddOrEvenNumbersMap.get(true);
-        return result;
     }
 }

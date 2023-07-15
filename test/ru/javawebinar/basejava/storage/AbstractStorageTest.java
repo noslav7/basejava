@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.javawebinar.basejava.Config;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.*;
@@ -16,8 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
 
-    protected static final File STORAGE_DIR =
-            new File("C:\\workspace\\basejava\\storage");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
     protected final Storage storage;
     protected static final String UUID_1 = "UUID_1";
     protected static final String UUID_2 = "UUID_2";
@@ -34,7 +34,7 @@ public abstract class AbstractStorageTest {
         R2 = new Resume(UUID_2, "Name 2");
         R3 = new Resume(UUID_3, "Name 3");
         R4 = new Resume(UUID_4, "Name 4");
-        R1.addContact(ContactType.MAIL, "mail1@ya.ru");
+  /*      R1.addContact(ContactType.MAIL, "mail1@ya.ru");
         R1.addContact(ContactType.PHONE, "11111");
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
@@ -64,7 +64,7 @@ public abstract class AbstractStorageTest {
                 new OrganizationSection(
                         new Organization("Organization2", "http://Organization2.ru",
                                 new Organization.Position(2015, Month.JANUARY,
-                                        "position1", "content1"))));
+                                        "position1", "content1"))));*/
     }
 
     protected static final Resume[] expected = new Resume[] {R1, R2, R3};

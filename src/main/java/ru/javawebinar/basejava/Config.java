@@ -7,16 +7,15 @@ import java.util.Properties;
 public class Config {
     private static final File PROPS = new File("config\\resumes.properties");
     private static final Config INSTANCE = new Config();
-
-    private Properties props = new Properties();
-    private File storageDir;
+    private final File storageDir;
 
     public static Config get() {
         return INSTANCE;
     }
 
     private Config() {
-        try (InputStream is = new FileInputStream(PROPS)) {
+        try (InputStream is = Files.newInputStream(PROPS.toPath())) {
+            Properties props = new Properties();
             props.load(is);
             storageDir = new File(props.getProperty("storage.dir"));
         } catch (IOException e) {

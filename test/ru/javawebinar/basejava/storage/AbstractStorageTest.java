@@ -12,16 +12,17 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
     protected final Storage storage;
-    protected static final String UUID_1 = "UUID_1";
-    protected static final String UUID_2 = "UUID_2";
-    protected static final String UUID_3 = "UUID_3";
-    protected static final String UUID_4 = "UUID_4";
+    protected static final String UUID_1 = UUID.randomUUID().toString();
+    protected static final String UUID_2 = UUID.randomUUID().toString();
+    protected static final String UUID_3 = UUID.randomUUID().toString();
+    protected static final String UUID_4 = UUID.randomUUID().toString();
     protected static final String UUID_NOT_EXIST = "dummy";
     private static final Resume R1;
     private static final Resume R2;

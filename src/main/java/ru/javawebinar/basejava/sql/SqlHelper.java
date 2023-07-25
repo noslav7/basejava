@@ -1,6 +1,5 @@
 package ru.javawebinar.basejava.sql;
 
-import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.storage.SqlTransaction;
 
 import java.sql.Connection;

@@ -7,6 +7,7 @@ import ru.javawebinar.basejava.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -55,14 +56,16 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
+        AtomicInteger parameter = new AtomicInteger(1);
         return sqlHelper.execute("" +
                         "SELECT * FROM resume r " +
                         "  JOIN contact c " +
                         "    ON r.uuid = c.resume_uuid " +
                         " WHERE r.uuid = ?",
-                ps -> {
-                    ps.setString(1, uuid);
-                    ResultSet rs = ps.executeQuery();
+                (ps1, ps2) -> {
+                    ps1.setString(parameter.getAndIncrement(), uuid);
+                    ps1.setString(parameter.getAndIncrement(), ps2.getUuid());
+                    ResultSet rs = ps1.executeQuery();
                     if (!rs.next()) {
                         throw new NotExistStorageException(uuid);
                     }

@@ -6,8 +6,10 @@ import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -56,21 +58,19 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        AtomicInteger parameter = new AtomicInteger(1);
         return sqlHelper.execute("" +
                         "SELECT * FROM resume r " +
                         "  JOIN contact c " +
                         "    ON r.uuid = c.resume_uuid " +
                         " WHERE r.uuid = ?",
-                (ps1, ps2) -> {
-                    ps1.setString(parameter.getAndIncrement(), uuid);
-                    ps1.setString(parameter.getAndIncrement(), ps2.getUuid());
-                    ResultSet rs = ps1.executeQuery();
+                ps -> {
+                    ps.setString(1, uuid);
+                    ResultSet rs = ps.executeQuery();
                     if (!rs.next()) {
                         throw new NotExistStorageException(uuid);
                     }
                     Resume r = new Resume(uuid, rs.getString("full_name"));
-                    addContacts(rs, r);
+                    addContact(rs, r);
                     return r;
                 });
     }
@@ -100,7 +100,7 @@ public class SqlStorage implements Storage {
                     resume = new Resume(uuid, rs.getString("full_name"));
                     map.put(uuid, resume);
                 }
-                addContacts(rs, resume);
+                addContact(rs, resume);
             }
             return new ArrayList<>(map.values());
         });
@@ -135,7 +135,7 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private void addContacts(ResultSet rs, Resume resume) throws SQLException {
+    private void addContact(ResultSet rs, Resume resume) throws SQLException {
         String value = rs.getString("value");
         if (value != null) {
             resume.addContact(ContactType.valueOf(rs.getString("type")), value);

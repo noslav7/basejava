@@ -60,7 +60,7 @@ public class SqlStorage implements Storage {
     public Resume get(String uuid) {
         return sqlHelper.execute("" +
                         "SELECT * FROM resume r " +
-                        "  JOIN contact c " +
+                        "  LEFT JOIN contact c " +
                         "    ON r.uuid = c.resume_uuid " +
                         " WHERE r.uuid = ?",
                 ps -> {
@@ -70,10 +70,9 @@ public class SqlStorage implements Storage {
                         throw new NotExistStorageException(uuid);
                     }
                     Resume r = new Resume(uuid, rs.getString("full_name"));
-                    addContact(rs, r);
-                    while (rs.next()) {
+                    do {
                         addContact(rs, r);
-                    }
+                    } while (rs.next());
                     return r;
                 });
     }

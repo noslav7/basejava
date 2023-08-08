@@ -28,8 +28,8 @@ public class SqlStorage implements Storage {
         sqlHelper.transactionalExecute(conn -> {
             try (PreparedStatement ps = conn.prepareStatement(
                     "UPDATE resume SET full_name = ? WHERE uuid = ?")) {
-                ps.setString(1, r.getUuid());
-                ps.setString(2, r.getFullName());
+                ps.setString(1, r.getFullName());
+                ps.setString(2, r.getUuid());
                 ps.execute();
                 if (ps.executeUpdate() != 1) {
                     throw new NotExistStorageException(r.getUuid());

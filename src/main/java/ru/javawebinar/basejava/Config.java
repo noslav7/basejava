@@ -17,6 +17,15 @@ public class Config {
         return INSTANCE;
     }
 
+    private static File getHomedir() {
+        String prop = System.getProperty("homeDir");
+        File homeDir = new File(prop==null ? "." : prop);
+        if (!homeDir.isDirectory()) {
+            throw new IllegalStateException(homeDir + " is not directory");
+        }
+        return homeDir;
+    }
+
     private Config() {
         try (InputStream is = Files.newInputStream(PROPS.toPath())) {
             Properties props = new Properties();

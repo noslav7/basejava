@@ -18,6 +18,11 @@ public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
         sqlHelper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
     }
 
@@ -56,6 +61,7 @@ public class SqlStorage implements Storage {
                         ps.execute();
                     }
                     insertContacts(conn, r);
+                    insertSections(conn, r);
                     return null;
                 }
         );
@@ -178,7 +184,7 @@ public class SqlStorage implements Storage {
     }
 
     private void insertSections(Connection conn, Resume r) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact(resume_uuid, type, value) " +
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section(resume_uuid, type, content) " +
                 "VALUES (?, ?, ?)")) {
             for (Map.Entry<SectionType, Section> e : r.getSections().entrySet()) {
                 ps.setString(1, r.getUuid());

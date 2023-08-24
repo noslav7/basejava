@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class ResumeServlet extends HttpServlet {
-    private Storage storage; // = Config.get().getStorage();
+    private Storage storage = Config.get().getStorage();
 
     @Override
     public void init(ServletConfig config) throws ServletException {

@@ -43,7 +43,7 @@ public class ResumeServlet extends HttpServlet {
         String action = request.getParameter("action");
         if (action == null) {
             request.setAttribute("resumes", storage.getAllSorted());
-            request.getRequestDispatcher("WEB-INF/jsp/list.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
             return;
         }
         Resume r;
@@ -61,7 +61,7 @@ public class ResumeServlet extends HttpServlet {
         }
         request.setAttribute("resume", r);
         request.getRequestDispatcher(
-                ("view".equals(action) ? "WEB-INF/jsp/view.jsp" : "WEB-INF/jsp/edit.jsp")
+                ("view".equals(action) ? "/WEB-INF/jsp/view.jsp" : "/WEB-INF/jsp/edit.jsp")
         ).forward(request, response);
     }
 }

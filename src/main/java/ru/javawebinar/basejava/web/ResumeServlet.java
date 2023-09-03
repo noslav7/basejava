@@ -29,7 +29,7 @@ public class ResumeServlet extends HttpServlet {
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
             if (value != null && value.trim().length() != 0) {
-                r.addContact(type, value);
+                r.setContact(type, value);
             } else {
                 r.getContacts().remove(type);
             }
